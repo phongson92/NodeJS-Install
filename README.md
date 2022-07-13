@@ -86,6 +86,7 @@ create-react-app --version
 You should get the following output:
 
 4.0.3
+
 Step 4: Create your ReactJS Application
 You can create your ReactJS application with the following command:
 
