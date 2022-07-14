@@ -2,38 +2,42 @@
     a. Install docker 
         Change docker daemon, docker service to connect socket from external to internal docker
 
-        ```
+    
         docker0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
         inet 172.17.0.1  netmask 255.255.0.0  broadcast 172.17.255.255
         inet6 fe80::42:7aff:fe1d:3c30  prefixlen 64  scopeid 0x20<link>
-        ```
+    
 
-        ```
+     
         vi /lib/systemd/system/docker.service
-        ```
+       
 
-        ```
+     
         [Service]
             Type=notify
             # the default is not to use systemd for cgroups because the delegate issues still
             # exists and systemd currently does not support the cgroup feature set required
             # for containers run by docker
             ExecStart=/usr/bin/dockerd -H unix://var/run/docker.sock -H tcp://172.17.0.1 --containerd=/run/containerd/containerd.sock
-        ```
+        
 
-        ```
+        
         system daemon-reload &&  service docker restart
-         ```
          
+
     b. Create jenkins user
+
         run add-docker-user.sh to create jenkins user
         run start-jenkins-server.sh to deploy jenkins docker image
         Before deploy jenkins docker image, check uid jenkins user
-        ```
+
+        
         root@:~# su - jenkins
         id
-        uid=1000(jenkins) gid=1000(jenkins) groups=1000(jenkins),998(docker)```
+        uid=1000(jenkins) gid=1000(jenkins) groups=1000(jenkins),998(docker) 
+
     c. Install plugin on jenkins server
+
         a.	Docker Pipeline
         b.	Dokcer plugin
         c.	Git plugin
@@ -48,10 +52,10 @@
     node -v
     ```
     Once Node.js is installed, update the NPM to the latest version using the following command:
-```
-npm install npm@latest -g
-npm install tar@6 -g
-```
+    ```
+    npm install npm@latest -g
+    npm install tar@6 -g
+    ```
 You can now verify the npm version with the following command:
 
 ```
