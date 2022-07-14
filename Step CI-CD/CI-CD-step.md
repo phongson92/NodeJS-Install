@@ -1,12 +1,17 @@
 1. Install jenkins as a docker image on Server
     a. Install docker 
         Change docker daemon, docker service to connect socket from external to internal docker
+
         ```
         docker0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
         inet 172.17.0.1  netmask 255.255.0.0  broadcast 172.17.255.255
         inet6 fe80::42:7aff:fe1d:3c30  prefixlen 64  scopeid 0x20<link>
         ```
+
+        ```
         vi /lib/systemd/system/docker.service
+        ```
+
         ```
         [Service]
             Type=notify
@@ -14,8 +19,12 @@
             # exists and systemd currently does not support the cgroup feature set required
             # for containers run by docker
             ExecStart=/usr/bin/dockerd -H unix://var/run/docker.sock -H tcp://172.17.0.1 --containerd=/run/containerd/containerd.sock
-            ```
-        system daemon-reload / service docker restart
+        ```
+
+        ```
+        system daemon-reload &&  service docker restart
+         ```
+         
     b. Create jenkins user
         run add-docker-user.sh to create jenkins user
         run start-jenkins-server.sh to deploy jenkins docker image
